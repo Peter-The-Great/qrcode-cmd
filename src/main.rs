@@ -1,8 +1,11 @@
+extern crate image;
 use image::Luma;
+extern crate qrcode;
 use qrcode::QrCode;
 use std::env;
 
 fn main() {
+    let version = env!("CARGO_PKG_VERSION");
     // Get the command-line argument for the input text
     let args: Vec<String> = env::args().collect();
 
@@ -11,7 +14,13 @@ fn main() {
         println!("Please provide the input text as an argument.");
         return;
     }
+    
     let input_text = &args[1];
+
+    if input_text == "--version" {
+        println!("Version: {}", version);
+        return;
+    }
 
     // Generate the QR code
     let code = QrCode::new(input_text).expect("Failed to generate QR code.");

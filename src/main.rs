@@ -1,3 +1,4 @@
+use image::Luma;
 use qrcode::QrCode;
 use std::env;
 
@@ -15,7 +16,18 @@ fn main() {
     // Generate the QR code
     let code = QrCode::new(input_text).expect("Failed to generate QR code.");
 
+     // Encode some data into bits.
+    let bitdata = QrCode::new(input_text).unwrap();
+
+    // Render the bits into an image.
+    let image = bitdata.render::<Luma<u8>>().build();
+
+    // Save the image.
+    image.save("qrcode.png").unwrap();
+
     // Render the QR code as ASCII
     let string = code.render::<char>().quiet_zone(false).module_dimensions(2, 1).build();
+
+    // Render the bits into an image.
     println!("{}", string);
 }

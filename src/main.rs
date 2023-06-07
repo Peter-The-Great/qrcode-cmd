@@ -1,6 +1,4 @@
-extern crate image;
 use image::Luma;
-extern crate qrcode;
 use qrcode::QrCode;
 use std::env;
 
